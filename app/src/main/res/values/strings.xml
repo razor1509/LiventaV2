@@ -7,20 +7,27 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+
+    <string name="nav_item_home">Home</string>
     <string name="nav_item_temperature">Temperature</string>
     <string name="nav_item_pressure">Pressure</string>
     <string name="nav_item_liquid">Liquid Level</string>
+    <string name="nav_item_bluetooth">Bluetooth</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
         <item>@string/nav_item_temperature</item>
         <item>@string/nav_item_pressure</item>
         <item>@string/nav_item_liquid</item>
+        <item>@string/nav_item_bluetooth</item>
     </string-array>
 
+    <string name="title_home">Home</string>
     <string name="title_pressure">Pressure</string>
     <string name="title_temperature">Temperature</string>
     <string name="title_liquid">Liquid Level</string>
+    <string name="title_bluetooth">Bluetooth</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

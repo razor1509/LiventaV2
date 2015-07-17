@@ -70,17 +70,26 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         Fragment fragment = null;
         String title = getString(R.string.app_name);
         switch (position) {
+
             case 0:
+                fragment = new HomeFragment();
+                title = getString(R.string.title_home);
+                break;
+            case 1:
                 fragment = new TemperatureFragment();
                 title = getString(R.string.title_temperature);
                 break;
-            case 1:
+            case 2:
                 fragment = new PressureFragment();
                 title = getString(R.string.title_pressure);
                 break;
-            case 2:
+            case 3:
                 fragment = new LiquidFragment();
                 title = getString(R.string.title_liquid);
+                break;
+            case 4:
+                fragment = new BluetoothFragment();
+                title = getString(R.string.title_bluetooth);
                 break;
             default:
                 break;

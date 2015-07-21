@@ -3,28 +3,108 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    android:padding="2dp">
+
+    <LinearLayout
+        android:paddingTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20"
+        android:id="@+id/linearLayout"
+        android:paddingBottom="2dp">
 
     <TextView
-        android:id="@+id/label"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="45sp"
+        android:paddingLeft="2dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:textSize="23sp"
         android:text="Bluetooth"
-        android:textStyle="bold"/>
+        />
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="8"/>
 
-    <TextView
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true"
-        android:layout_width="fill_parent"
+    <Switch
+        android:paddingRight="2dp"
+        android:id="@+id/onOff"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="This is where the magic happens!" />
+        android:layout_weight="6"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search Devices"
+        android:id="@+id/searchButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp" />
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_above="@+id/searchButton"
+        android:weightSum="20"
+        >
+
+
+        <TextView
+            android:padding="1dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Paired Devices: "
+            android:id="@+id/textView" />
+
+
+        <ScrollView
+            android:layout_weight="9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView" />
+        </ScrollView>
+
+        <TextView
+            android:padding="1dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Available Devices: "
+            android:id="@+id/textView2" />
+
+        <ScrollView
+            android:layout_weight="9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2"
+            android:layout_gravity="center_horizontal">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView2" />
+        </ScrollView>
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="Paired Devices: "
+            android:textColor="@color/textBluetooth"
             android:id="@+id/textView" />
 
 
@@ -76,6 +77,7 @@
             android:id="@+id/scrollView">
 
             <ListView
+                android:listSelector="@color/listColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/listView" />
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="Available Devices: "
+            android:textColor="@color/textBluetooth"
             android:id="@+id/textView2" />
 
         <ScrollView
@@ -98,6 +101,7 @@
             android:layout_gravity="center_horizontal">
 
             <ListView
+                android:listSelector="@color/listColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/listView2" />

@@ -6,4 +6,6 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#BBDEFB</color>
+    <color name="textBluetooth">#0097A7</color>
+    <color name="listColor">#455A64</color>
 </resources>

@@ -108,7 +108,6 @@ public class BluetoothFragment extends Fragment {
 
 
 
-
         return rootView;
 
     }

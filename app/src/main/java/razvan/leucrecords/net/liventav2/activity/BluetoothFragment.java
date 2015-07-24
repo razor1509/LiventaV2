@@ -77,7 +77,7 @@ public class BluetoothFragment extends Fragment {
 
 
         listView2 = (ListView) rootView.findViewById(R.id.listView2);
-        searchAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
+        searchAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.list_items);
         listView2.setAdapter(searchAdapter);
 
         //registerReceiver

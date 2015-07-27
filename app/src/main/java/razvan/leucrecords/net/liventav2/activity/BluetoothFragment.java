@@ -13,11 +13,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import razvan.leucrecords.net.liventav2.R;
 
@@ -36,7 +42,7 @@ public class BluetoothFragment extends Fragment {
     private ListView listView2;
     private ArrayAdapter<String> searchAdapter, pairedAdapter;
     private Button searchButton;
-
+    private BluetoothDevice device;
 
     public BluetoothFragment() {
     }
@@ -63,7 +69,7 @@ public class BluetoothFragment extends Fragment {
         onOffSwitch = (Switch) rootView.findViewById(R.id.onOff);
 
         onOffSwitch.setChecked(false);
-
+//Turn BT ON
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -75,7 +81,7 @@ public class BluetoothFragment extends Fragment {
             }
         });
 
-
+//Show Found Devices
         listView2 = (ListView) rootView.findViewById(R.id.listView2);
         searchAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.list_items);
         listView2.setAdapter(searchAdapter);
@@ -94,11 +100,18 @@ public class BluetoothFragment extends Fragment {
             }
         });
 
+//pair devices
 
 
 
 
 
+
+//show paired devices
+
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        pairedAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.list_items);
+        listView.setAdapter(pairedAdapter);
 
 
 
@@ -130,6 +143,17 @@ public class BluetoothFragment extends Fragment {
     };
 
 
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent
+                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                pairedAdapter.add(device.getName());
+
+            }
+        }
+    };
 
 
 

@@ -3,11 +3,13 @@ package razvan.leucrecords.net.liventav2.activity;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,11 +21,15 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import razvan.leucrecords.net.liventav2.R;
 
@@ -43,6 +49,9 @@ public class BluetoothFragment extends Fragment {
     private ArrayAdapter<String> searchAdapter, pairedAdapter;
     private Button searchButton;
     private BluetoothDevice device;
+    private Set<BluetoothDevice> pairedDevices;
+    private BluetoothSocket bluetoothSocket;
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
     public BluetoothFragment() {
     }
@@ -78,6 +87,7 @@ public class BluetoothFragment extends Fragment {
                 } else {
                     myBA.disable();
                 }
+
             }
         });
 
@@ -107,24 +117,60 @@ public class BluetoothFragment extends Fragment {
 
 
 
+
 //show paired devices
 
-        listView = (ListView) rootView.findViewById(R.id.listView);
         pairedAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.list_items);
+
+        listView = (ListView) rootView.findViewById(R.id.listView);
         listView.setAdapter(pairedAdapter);
 
+        Set<BluetoothDevice> pairedDevices = myBA.getBondedDevices();
+
+        // Add previosuly paired devices to the array
+        if (pairedDevices.size() > 0) {
+          // rootView.findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);//make title viewable
+            for (BluetoothDevice device : pairedDevices) {
+                pairedAdapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        } else {
+//            String noDevices = getResources().getText(R.string.none_paired).toString();
+  //          mPairedDevicesArrayAdapter.add(noDevices);
+
+            Toast.makeText(getActivity(), "No devices paired", Toast.LENGTH_LONG).show();
+        }
 
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Get the device MAC address, which is the last 17 chars in the View
+                String info = ((TextView) view).getText().toString();
+                String address = info.substring(info.length() - 17);
 
 
+                //connect the device when item is click
+                BluetoothDevice connect_device = myBA.getRemoteDevice(address);
 
+                try {
+                    bluetoothSocket = connect_device.createRfcommSocketToServiceRecord(MY_UUID);
+                    bluetoothSocket.connect();
 
+                    if (bluetoothSocket.isConnected()){
+
+                        Toast.makeText(getActivity(), "Connected", Toast.LENGTH_LONG).show();
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
         return rootView;
 
     }
-
 
 
 
@@ -163,11 +209,6 @@ public class BluetoothFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-
-
-
-
 
 
 
